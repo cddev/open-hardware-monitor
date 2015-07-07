@@ -1,35 +1,36 @@
 ﻿/*
- 
+
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
- 
+
   Copyright (C) 2010-2014 Michael Möller <mmoeller@openhardwaremonitor.org>
-	
+
 */
 
-namespace OpenHardwareMonitor.Hardware {
+namespace OpenHardwareMonitor.Hardware
+{
+    public enum ControlMode
+    {
+        Undefined,
+        Software,
+        Default
+    }
 
-  public enum ControlMode {
-    Undefined,
-    Software,
-    Default
-  }
+    public interface IControl
+    {
+        Identifier Identifier { get; }
 
-  public interface IControl {
+        ControlMode ControlMode { get; }
 
-    Identifier Identifier { get; }
+        float SoftwareValue { get; }
 
-    ControlMode ControlMode { get; }
+        void SetDefault();
 
-    float SoftwareValue { get; }
+        float MinSoftwareValue { get; }
 
-    void SetDefault();
+        float MaxSoftwareValue { get; }
 
-    float MinSoftwareValue { get; }
-    float MaxSoftwareValue { get; }
-
-    void SetSoftware(float value);
-
-  }
+        void SetSoftware(float value);
+    }
 }

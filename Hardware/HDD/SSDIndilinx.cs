@@ -1,24 +1,25 @@
 ﻿/*
- 
+
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
- 
+
   Copyright (C) 2009-2012 Michael Möller <mmoeller@openhardwaremonitor.org>
 	Copyright (C) 2010 Paul Werelds
   Copyright (C) 2011 Roland Reinl <roland-reinl@gmx.de>
-	
+
 */
 
-namespace OpenHardwareMonitor.Hardware.HDD {
-  using System.Collections.Generic;
+namespace OpenHardwareMonitor.Hardware.HDD
+{
+    using System.Collections.Generic;
 
-  [NamePrefix(""), RequireSmart(0x01), RequireSmart(0x09), RequireSmart(0x0C), 
-    RequireSmart(0xD1), RequireSmart(0xCE), RequireSmart(0xCF)]
-  internal class SSDIndilinx : AbstractHarddrive {
-
-    private static readonly IEnumerable<SmartAttribute> smartAttributes =
-      new List<SmartAttribute> {
+    [NamePrefix(""), RequireSmart(0x01), RequireSmart(0x09), RequireSmart(0x0C),
+      RequireSmart(0xD1), RequireSmart(0xCE), RequireSmart(0xCF)]
+    internal class SSDIndilinx : AbstractHarddrive
+    {
+        private static readonly IEnumerable<SmartAttribute> smartAttributes =
+          new List<SmartAttribute> {
         new SmartAttribute(0x01, SmartNames.ReadErrorRate),
         new SmartAttribute(0x09, SmartNames.PowerOnHours),
         new SmartAttribute(0x0C, SmartNames.PowerCycleCount),
@@ -42,13 +43,11 @@ namespace OpenHardwareMonitor.Hardware.HDD {
         new SmartAttribute(0xD2, SmartNames.UnknownUnique),
         new SmartAttribute(0xD3, SmartNames.SataErrorCountCrc),
         new SmartAttribute(0xD4, SmartNames.SataErrorCountHandshake)
-      };
+          };
 
-    public SSDIndilinx(ISmart smart, string name, string firmwareRevision, 
-      int index, ISettings settings)
-      : base(smart, name, firmwareRevision, index, smartAttributes, settings) {}
-  }
+        public SSDIndilinx(ISmart smart, string name, string firmwareRevision,
+          int index, ISettings settings)
+          : base(smart, name, firmwareRevision, index, smartAttributes, settings)
+        { }
+    }
 }
-
-
-

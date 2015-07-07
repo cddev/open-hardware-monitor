@@ -1,70 +1,78 @@
 ﻿/*
- 
+
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
- 
+
   Copyright (C) 2009-2012 Michael Möller <mmoeller@openhardwaremonitor.org>
-	
+
 */
 
+using OpenHardwareMonitor.Collections;
 using System;
 using System.Collections.Generic;
-using OpenHardwareMonitor.Collections;
 
-namespace OpenHardwareMonitor.Hardware {
-
-  public enum SensorType {
-    Voltage, // V
-    Clock, // MHz
-    Temperature, // °C
-    Load, // %
-    Fan, // RPM
-    Flow, // L/h
-    Control, // %
-    Level, // %
-    Factor, // 1
-    Power, // W
-    Data, // GB = 2^30 Bytes    
-  }
-
-  public struct SensorValue {
-    private readonly float value;
-    private readonly DateTime time;
-
-    public SensorValue(float value, DateTime time) {
-      this.value = value;
-      this.time = time;
+namespace OpenHardwareMonitor.Hardware
+{
+    public enum SensorType
+    {
+        Voltage, // V
+        Clock, // MHz
+        Temperature, // °C
+        Load, // %
+        Fan, // RPM
+        Flow, // L/h
+        Control, // %
+        Level, // %
+        Factor, // 1
+        Power, // W
+        Data, // GB = 2^30 Bytes
     }
 
-    public float Value { get { return value; } }
-    public DateTime Time { get { return time; } }
-  }
+    public struct SensorValue
+    {
+        private readonly float value;
+        private readonly DateTime time;
 
-  public interface ISensor : IElement {
+        public SensorValue(float value, DateTime time)
+        {
+            this.value = value;
+            this.time = time;
+        }
 
-    IHardware Hardware { get; }
+        public float Value { get { return value; } }
 
-    SensorType SensorType { get; }
-    Identifier Identifier { get; }
+        public DateTime Time { get { return time; } }
+    }
 
-    string Name { get; set; }
-    int Index { get; }
+    public interface ISensor : IElement
+    {
+        IHardware Hardware { get; }
 
-    bool IsDefaultHidden { get; }
+        SensorType SensorType { get; }
 
-    IReadOnlyArray<IParameter> Parameters { get; }
+        Identifier Identifier { get; }
 
-    float? Value { get; }
-    float? Min { get; }
-    float? Max { get; }
+        string Name { get; set; }
 
-    void ResetMin();
-    void ResetMax();
+        int Index { get; }
 
-    IEnumerable<SensorValue> Values { get; }
+        bool IsDefaultHidden { get; }
 
-    IControl Control { get; }
-  }
+        IReadOnlyArray<IParameter> Parameters { get; }
 
+        float? Value { get; }
+
+        float? Min { get; }
+
+        float? Max { get; }
+
+        void ResetMin();
+
+        void ResetMax();
+
+        IEnumerable<SensorValue> Values { get; }
+
+        IControl Control { get; }
+    }
 }

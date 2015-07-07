@@ -1,47 +1,50 @@
 ﻿/*
- 
+
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
- 
+
   Copyright (C) 2009-2011 Michael Möller <mmoeller@openhardwaremonitor.org>
-	
+
 */
 
-namespace OpenHardwareMonitor.Hardware {
+namespace OpenHardwareMonitor.Hardware
+{
+    public delegate void SensorEventHandler(ISensor sensor);
 
-  public delegate void SensorEventHandler(ISensor sensor);
-  
-  public enum HardwareType {
-    Mainboard,
-    SuperIO,
-    CPU,
-    RAM,
-    GpuNvidia,
-    GpuAti,    
-    TBalancer,
-    Heatmaster,
-    HDD
-  }
+    public enum HardwareType
+    {
+        Mainboard,
+        SuperIO,
+        CPU,
+        RAM,
+        GpuNvidia,
+        GpuAti,
+        TBalancer,
+        Heatmaster,
+        HDD
+    }
 
-  public interface IHardware : IElement {
+    public interface IHardware : IElement
+    {
+        string Name { get; set; }
 
-    string Name { get; set; }
-    Identifier Identifier { get; }
+        Identifier Identifier { get; }
 
-    HardwareType HardwareType { get; }
+        HardwareType HardwareType { get; }
 
-    string GetReport();
+        string GetReport();
 
-    void Update();
+        void Update();
 
-    IHardware[] SubHardware { get; }
+        IHardware[] SubHardware { get; }
 
-    IHardware Parent { get; }
+        IHardware Parent { get; }
 
-    ISensor[] Sensors { get; }
+        ISensor[] Sensors { get; }
 
-    event SensorEventHandler SensorAdded;
-    event SensorEventHandler SensorRemoved;
-  }
+        event SensorEventHandler SensorAdded;
+
+        event SensorEventHandler SensorRemoved;
+    }
 }
