@@ -1,37 +1,32 @@
 ﻿/*
-
+ 
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
+ 
   Copyright (C) 2009-2010 Michael Möller <mmoeller@openhardwaremonitor.org>
-
+	
 */
 
-namespace OpenHardwareMonitor.Hardware
-{
-    public delegate void HardwareEventHandler(IHardware hardware);
+namespace OpenHardwareMonitor.Hardware {
 
-    public interface IComputer : IElement
-    {
-        IHardware[] Hardware { get; }
+  public delegate void HardwareEventHandler(IHardware hardware);
 
-        bool MainboardEnabled { get; }
+  public interface IComputer : IElement {
 
-        bool CPUEnabled { get; }
+    IHardware[] Hardware { get; }
 
-        bool RAMEnabled { get; }
+    bool MainboardEnabled { get; }
+    bool CPUEnabled { get; }
+    bool RAMEnabled { get; }
+    bool GPUEnabled { get; }
+    bool FanControllerEnabled { get; }
+    bool HDDEnabled { get; }
 
-        bool GPUEnabled { get; }
 
-        bool FanControllerEnabled { get; }
+    string GetReport();
 
-        bool HDDEnabled { get; }
-
-        string GetReport();
-
-        event HardwareEventHandler HardwareAdded;
-
-        event HardwareEventHandler HardwareRemoved;
-    }
+    event HardwareEventHandler HardwareAdded;
+    event HardwareEventHandler HardwareRemoved;
+  }
 }

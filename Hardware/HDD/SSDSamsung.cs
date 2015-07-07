@@ -1,25 +1,24 @@
 ﻿/*
-
+ 
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
+ 
   Copyright (C) 2012-2013 Michael Möller <mmoeller@openhardwaremonitor.org>
-
+	
 */
 
-namespace OpenHardwareMonitor.Hardware.HDD
-{
-    using OpenHardwareMonitor.Collections;
-    using System.Collections.Generic;
+namespace OpenHardwareMonitor.Hardware.HDD {
+  using System.Collections.Generic;
+  using OpenHardwareMonitor.Collections;
 
-    [NamePrefix(""), RequireSmart(0xB1), RequireSmart(0xB3), RequireSmart(0xB5),
-      RequireSmart(0xB6), RequireSmart(0xB7), RequireSmart(0xBB),
-      RequireSmart(0xC3), RequireSmart(0xC7)]
-    internal class SSDSamsung : AbstractHarddrive
-    {
-        private static readonly IEnumerable<SmartAttribute> smartAttributes =
-          new List<SmartAttribute> {
+  [NamePrefix(""), RequireSmart(0xB1), RequireSmart(0xB3), RequireSmart(0xB5),
+    RequireSmart(0xB6), RequireSmart(0xB7), RequireSmart(0xBB), 
+    RequireSmart(0xC3), RequireSmart(0xC7)]
+  internal class SSDSamsung : AbstractHarddrive {
+
+    private static readonly IEnumerable<SmartAttribute> smartAttributes =
+      new List<SmartAttribute> {
       new SmartAttribute(0x05, SmartNames.ReallocatedSectorsCount),
       new SmartAttribute(0x09, SmartNames.PowerOnHours, RawToInt),
       new SmartAttribute(0x0C, SmartNames.PowerCycleCount, RawToInt),
@@ -29,20 +28,20 @@ namespace OpenHardwareMonitor.Hardware.HDD
       new SmartAttribute(0xB2, SmartNames.UsedReservedBlockCountChip, RawToInt),
       new SmartAttribute(0xB3, SmartNames.UsedReservedBlockCountTotal, RawToInt),
 
-              // Unused Reserved Block Count (Total)
-              new SmartAttribute(0xB4, SmartNames.RemainingLife,
+      // Unused Reserved Block Count (Total)
+      new SmartAttribute(0xB4, SmartNames.RemainingLife,
         null, SensorType.Level, 0),
-
+      
       new SmartAttribute(0xB5, SmartNames.ProgramFailCountTotal, RawToInt),
       new SmartAttribute(0xB6, SmartNames.EraseFailCountTotal, RawToInt),
       new SmartAttribute(0xB7, SmartNames.RuntimeBadBlockTotal, RawToInt),
       new SmartAttribute(0xBB, SmartNames.UncorrectableErrorCount, RawToInt),
-      new SmartAttribute(0xBE, SmartNames.Temperature,
-        (byte[] r, byte v, IReadOnlyArray<IParameter> p)
-          => { return r[0] + (p == null ? 0 : p[0].Value); },
-          SensorType.Temperature, 0, false,
-        new[] { new ParameterDescription("Offset [°C]",
-                  "Temperature offset of the thermal sensor.\n" +
+      new SmartAttribute(0xBE, SmartNames.Temperature, 
+        (byte[] r, byte v, IReadOnlyArray<IParameter> p) 
+          => { return r[0] + (p == null ? 0 : p[0].Value); }, 
+          SensorType.Temperature, 0, false, 
+        new[] { new ParameterDescription("Offset [°C]", 
+                  "Temperature offset of the thermal sensor.\n" + 
                   "Temperature = Value + Offset.", 0) }),
       new SmartAttribute(0xC2, SmartNames.AirflowTemperature),
       new SmartAttribute(0xC3, SmartNames.ECCRate),
@@ -52,11 +51,10 @@ namespace OpenHardwareMonitor.Hardware.HDD
       new SmartAttribute(0xCA, SmartNames.ExceptionModeStatus),
       new SmartAttribute(0xEB, SmartNames.PowerRecoveryCount),
       new SmartAttribute(0xF1, SmartNames.TotalLBAWritten)
-        };
+    };
 
-        public SSDSamsung(ISmart smart, string name, string firmwareRevision,
-          int index, ISettings settings)
-          : base(smart, name, firmwareRevision, index, smartAttributes, settings)
-        { }
-    }
+    public SSDSamsung(ISmart smart, string name, string firmwareRevision,
+      int index, ISettings settings)
+      : base(smart, name, firmwareRevision, index, smartAttributes, settings) { }
+  }
 }
